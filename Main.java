@@ -30,7 +30,7 @@ class Usuario {
 
     boolean agregarPrestamo(Libro libro) {
         if (prestados.size() >= 3) {
-            System.out.println("❌ Máximo de 3 libros prestados.");
+            System.out.println("Máximo de 3 libros prestados.");
             return false;
         }
         prestados.add(libro);
@@ -47,7 +47,7 @@ class Prestamo {
     public Prestamo(Usuario usuario, Libro libro) {
         this.usuario = usuario; this.libro = libro;
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DAY_OF_MONTH, 7); // 7 días de préstamo
+        cal.add(Calendar.DAY_OF_MONTH, 7);
         fechaLimite = cal.getTime();
     }
 
@@ -86,13 +86,13 @@ class Biblioteca {
         Usuario u = buscarUsuario(idUsuario);
         Libro l = buscarLibro(codigoLibro);
         if (u == null || l == null || !l.disponible) {
-            System.out.println("❌ Usuario o libro no válido.");
+            System.out.println("Usuario o libro no válido.");
             return;
         }
         if (u.agregarPrestamo(l)) {
             l.marcarPrestado();
             prestamos.add(new Prestamo(u, l));
-            System.out.println("✅ Libro prestado.");
+            System.out.println("Libro prestado.");
         }
     }
 
@@ -101,7 +101,7 @@ class Biblioteca {
         Libro l = buscarLibro(codigoLibro);
         Prestamo p = buscarPrestamo(u, l);
         if (u == null || l == null || p == null) {
-            System.out.println("❌ Datos incorrectos.");
+            System.out.println("Datos incorrectos.");
             return;
         }
         long diasRetraso = p.calcularRetraso();
@@ -109,7 +109,7 @@ class Biblioteca {
         u.devolverLibro(l);
         l.marcarDisponible();
         prestamos.remove(p);
-        System.out.println("✅ Libro devuelto.");
+        System.out.println("Libro devuelto.");
     }
 
     void mostrarHistorialPrestamos() {
@@ -137,7 +137,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Biblioteca b = new Biblioteca();
 
-        // 📌 Datos iniciales
+        
         b.registrarLibro("El Quijote", "Cervantes", "L1");
         b.registrarLibro("Cien Años de Soledad", "Gabo", "L2");
         b.registrarLibro("El Principito", "Saint-Exupéry", "L3");
@@ -168,9 +168,10 @@ public class Main {
                     System.out.print("Código Libro: "); codL = sc.nextLine();
                     b.devolverLibro(idU, codL); break;
                 case 5: b.mostrarHistorialPrestamos(); break;
-                case 0: System.out.println("👋 Saliendo..."); break;
-                default: System.out.println("❌ Opción inválida.");
+                case 0: System.out.println("Saliendo..."); break;
+                default: System.out.println("Opción inválida.");
             }
         } while (op != 0);
     }
+
 }
